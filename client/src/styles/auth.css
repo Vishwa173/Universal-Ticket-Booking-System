@@ -1,0 +1,46 @@
+.auth-container {
+  @apply flex items-center justify-center min-h-screen bg-gray-900 px-4;
+}
+
+.auth-card {
+  @apply w-full max-w-md bg-gray-800 rounded-2xl shadow-xl p-8 space-y-6 text-white;
+}
+
+.auth-title {
+  @apply text-3xl font-semibold text-center;
+}
+
+.auth-input,
+.auth-select {
+  @apply w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.auth-button {
+  @apply w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition;
+}
+
+.auth-secondary-button {
+  @apply w-full py-2 rounded-lg text-white font-medium;
+}
+
+.auth-link {
+  @apply text-sm text-blue-400 hover:underline cursor-pointer text-right;
+}
+
+.auth-footer {
+  @apply text-center text-sm text-gray-400 mt-4;
+}
+
+.auth-divider {
+  @apply my-6 border-t border-gray-700;
+}
+
+.app-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-align: center;
+  color: #3b82f6;
+  margin-bottom: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+}
