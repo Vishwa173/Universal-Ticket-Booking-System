@@ -1,151 +1,376 @@
-This project has been done using react.js, tailwind css for the front end, and Express (NodeJs) and PostgreSQL for the backend. The front end runs on the port 5173, and the backend in the port 3000.
+# Universal Ticket Booking System
 
+A full-stack ticket booking platform supporting movies, concerts, and railway ticket reservations through a unified booking experience.
 
-Universal Ticket Booking System
+## Overview
 
-A full-stack application that allows users to book various types of tickets — including movie tickets, concert tickets, and railway tickets — through a single unified platform. The system supports core features such as user authentication, event listings, real-time seat selection, payments, and PDF ticket generation. Additionally, it includes an admin dashboard for event management and booking analytics.
+Universal Ticket Booking System is a scalable full-stack application designed to manage event discovery, ticket booking, real-time seat selection, secure payments, and digital ticket delivery. The platform supports multiple user roles with role-based access control and provides end-to-end booking workflows for different event categories.
 
-There are three roles: users, vendors, and admins.
+The system focuses on backend architecture, real-time synchronization, secure authentication, booking orchestration, and payment-driven workflows.
 
-Users are customers who browse events and purchase tickets through the application.
+The application is built using:
 
-Vendors are event organizers who list their events on the platform to sell tickets.
+* React.js and Tailwind CSS for the frontend
+* Node.js and Express.js for the backend
+* PostgreSQL as the primary database
+* WebSockets for real-time seat synchronization
+* Razorpay for payment integration
+* JWT and OAuth-based authentication
 
-Admin oversees the platform, managing users, vendors, and moderating events to ensure smooth operations.
+Frontend runs on:
 
-Each booking results in an email confirmation sent to the user, with a downloadable PDF ticket (containing QR code). The system supports both basic and advanced functionality depending on the deployment mode (Normal, Hacker, Hacker++), and can be extended with AI-powered features like dynamic pricing and recommendation systems.
+```text
+http://localhost:5173
+```
 
-The project is divided into three main development tiers, each building on the last:
+Backend runs on:
 
-NORMAL MODE
+```text
+http://localhost:3000
+```
 
-~~User Authentication~~
+---
 
-~~Implement Sign up, login, and Signout functionality for different roles, i.e., user, vendor, or admin.~~
+# Features
 
-~~Every user will be credited with some amount of money upon account creation.~~
+## Role-Based Access Control (RBAC)
 
-~~Event Listing Page~~
+The platform supports three primary roles:
 
-~~Displays all available events across different categories (movie, concert, and train ticket booking are necessary).~~
+### Users
 
-~~Filtering by event type is supported.~~
+* Browse events
+* Select seats
+* Book tickets
+* View bookings and transaction history
+* Download PDF tickets
 
-~~Booking Form~~
+### Vendors
 
-~~For each event, users select the date, time, and number of seats (or passengers).~~
+* Create and manage events
+* Monitor ticket sales
+* Manage event details
 
-~~Includes specific fields for each event type (e.g., source and destination for trains).~~
+### Admins
 
-~~Ticket Summary Page~~
+* Manage users and vendors
+* Moderate platform events
+* Monitor booking activity
+* Access platform-level controls
 
-~~Displays the user's selections before final submission.~~
+---
 
-~~Forgot Password Functionality~~
+# Authentication and Authorization
 
-~~Implement forgot password functionality~~
+* JWT-based authentication system
+* Secure login and signup flows
+* OAuth integration
+* Protected API routes using role-based authorization
+* Password management and profile updates
 
-~~Profile Page~~
+---
 
-~~Add a page to display the user profile, which has the following functionalities:~~
+# Event Booking System
 
-~~Enables to add profile picture~~
+Supports multiple event categories including:
 
-~~Edit the user details~~
+* Movie ticket booking
+* Concert ticket booking
+* Railway ticket booking
 
-~~Change password~~
+Features include:
 
-~~Transaction History / User Bookings~~
+* Event listings and filtering
+* Event-specific booking forms
+* Date and time selection
+* Passenger and seat selection
+* Booking confirmation workflows
 
-~~Booking Cancellation~~
+---
 
-HACKER MODE
+# Real-Time Seat Selection
 
-~~OAuth and DAuth~~
+Implemented using WebSockets for live synchronization.
 
-~~Integrate OAuth and DAuth along with the manual login.~~
+Features:
 
-~~Do not use external libraries/modules for OAuth authentication.~~
+* Real-time seat availability updates
+* Dynamic seat status changes
+* Prevention of double booking
+* Interactive seat grid selection
 
-Basic Admin Panel
+Seat states:
 
-Implement an admin panel, which offers the following functionalities:
+* Available
+* Selected
+* Booked
 
-~~Log in as admin to add, edit, or delete events.~~
+---
 
-Admin can see the list of events organized by every vendor and, similarly, the list of events booked by every user.
+# Payment Integration
 
-Admin can view all bookings with filters for event/date/user.
+Integrated Razorpay test mode into the booking workflow.
 
-Admin dashboard shows a list of top-performing events.
+Features:
 
-~~Admin can suspend/delete vendor and user accounts.~~
+* Wallet-based payment handling
+* Secure transaction flow
+* Booking confirmation after successful payment
+* Payment validation and booking persistence
 
-~~Seat Selection Grid~~
+---
 
-~~Use websockets for seat selection in real-time.~~
+# PDF Ticket Generation and Email Delivery
 
-~~Users can visually pick their own seats in a grid layout.~~
+After successful booking, the system automatically:
 
-~~A seat should have any one of the following statuses:~~
+* Generates downloadable PDF tickets
+* Embeds QR codes for ticket verification
+* Sends booking confirmation emails
+* Stores booking records for future access
 
-~~Available~~
+Ticket information includes:
 
-~~Selected~~
+* User details
+* Event details
+* Seat information
+* Booking identifiers
+* QR code verification
 
-~~Booked~~
+---
 
-~~Seats marked booked are disabled from further selection.~~
+# Dynamic Pricing System
 
-~~Prevent double-booking and updating the status of the seats in realtime.~~
+Implemented demand-driven ticket pricing.
 
-~~Payment Integration~~
+Features:
 
-~~Razorpay or Stripe test mode integrated into booking flow (any other payment API can also be used).~~
+* Tracks booking demand in real time
+* Dynamically adjusts ticket prices
+* Increases pricing as seat availability decreases
+* Supports event-based pricing strategies
 
-~~Bookings are marked as successful only after payment.~~
+---
 
-~~PDF Ticket Generation with QR Code & Email Delivery~~
+# Recommendation System
 
-~~After a successful booking, the system automatically generates a PDF ticket containing:~~
+Implemented personalized event recommendations using user booking history.
 
-~~User & booking details (name, event, date, seats, etc.)~~
+Features:
 
-~~Event-specific info~~
+* Booking pattern analysis
+* Personalized event suggestions
+* Category-based preference tracking
+* Dynamic event prioritization
 
-~~A unique QR code for check-in or verification~~
+---
 
-~~This ticket is:~~
+# System Architecture
 
-~~Attached to the booking confirmation email~~
+## High-Level Flow
 
-~~Available for download from the user’s dashboard~~
+```text
+User
+   ↓
+React Frontend
+   ↓
+Express API Layer
+   ↓
+Authentication Middleware
+   ↓
+Booking & Payment Services
+   ↓
+PostgreSQL Database
+```
 
-~~The PDF should be cleanly designed with headers, event details, and a scannable QR code for fast and secure entry.~~
+## Booking Workflow
 
-HACKER++ MODE
+```text
+User Selects Event
+        ↓
+Seat Selection
+        ↓
+Real-Time Seat Validation
+        ↓
+Payment Processing
+        ↓
+Booking Confirmation
+        ↓
+PDF Ticket Generation
+        ↓
+Email Delivery
+```
 
-~~Recommendation~~
+---
 
-~~Recommend different events to the user based on the user's previous bookings.~~
+# Technologies Used
 
-Analytics Dashboard
+## Frontend
 
-Charts showing the most popular events, revenue by date, and active users.
+* React.js
+* Tailwind CSS
+* Axios
+* React Router
 
-Chatbot Assistant
+## Backend
 
-Helps users search for events, book tickets, and answer queries.
+* Node.js
+* Express.js
+* PostgreSQL
+* Sequelize ORM
+* JWT Authentication
+* OAuth
+* WebSockets
 
-Provides a seamless, interactive experience with personalized recommendations and support.
+## Integrations
 
-No-Show Prediction
+* Razorpay
+* QR Code Generation
+* Nodemailer
+* PDF Generation Libraries
 
-Predicts whether users will attend the event based on patterns in their past behavior.
+---
 
-Useful for train ticket overbooking models.
+# Project Structure
 
-~~Dynamic Pricing Algorithm~~
+```text
+Universal-Ticket-Booking-System/
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+│
+├── backend/
+│   ├── controllers/
+│   ├── routes/
+│   ├── models/
+│   ├── middleware/
+│   ├── services/
+│   └── utils/
+│
+├── uploads/
+├── tickets/
+├── package.json
+└── README.md
+```
 
-~~Adjusts ticket costs based on event demand.~~
-~~Increases prices for popular or near-sell-out events.~~
+---
+
+# Core Backend Features
+
+## Booking Engine
+
+* Booking creation and validation
+* Seat availability verification
+* Booking persistence
+* Transaction management
+
+## Authentication Layer
+
+* JWT token generation and validation
+* OAuth authentication flow
+* Role-based middleware protection
+
+## Real-Time Services
+
+* WebSocket seat synchronization
+* Concurrent booking prevention
+* Live seat state updates
+
+## Ticketing Services
+
+* QR code generation
+* PDF generation
+* Automated email workflows
+
+---
+
+# Running the Project
+
+## Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Runs on:
+
+```text
+http://localhost:5173
+```
+
+## Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Runs on:
+
+```text
+http://localhost:3000
+```
+
+---
+
+# Key Engineering Concepts Explored
+
+This project explores core concepts in:
+
+* Full-Stack Development
+* Real-Time Systems
+* Role-Based Access Control (RBAC)
+* Authentication and Authorization
+* WebSocket Communication
+* Payment System Integration
+* Booking System Architecture
+* Dynamic Pricing Algorithms
+* Recommendation Systems
+* Scalable Backend API Design
+* Relational Database Design
+
+---
+
+# Design Decisions
+
+## Why WebSockets for Seat Selection?
+
+Real-time seat synchronization prevents race conditions and double booking while ensuring all users receive live updates during seat selection.
+
+## Why JWT Authentication?
+
+JWT enables stateless authentication and scalable API protection across multiple user roles and services.
+
+## Why Dynamic Pricing?
+
+Demand-driven pricing improves revenue optimization by adjusting ticket prices based on booking trends and seat availability.
+
+## Why PostgreSQL?
+
+PostgreSQL provides strong transactional guarantees and relational consistency required for booking and payment systems.
+
+---
+
+# Future Improvements
+
+Potential future extensions include:
+
+* Distributed booking services
+* AI chatbot integration
+* No-show prediction models
+* Microservices architecture
+* Containerized deployment
+* Event recommendation optimization
+* Analytics dashboards
+
+---
+
+# License
+
+This project is intended for educational and research purposes.
